@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("HighIronRanch.IoC.StructureMap")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A wrapper for the IoC container in StructureMap")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Stephen Balkum")]
 [assembly: AssemblyProduct("HighIronRanch.IoC.StructureMap")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © 2015 Stephen Balkum")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
