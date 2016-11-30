@@ -5,7 +5,7 @@ using StructureMap.Graph;
 
 namespace HighIronRanch.IoC
 {
-	public class Bootstrapper : IBootstrapper
+	public class Bootstrapper
 	{
 		private readonly IEnumerable<string> _namespacesToScan;
 
@@ -16,28 +16,28 @@ namespace HighIronRanch.IoC
 
 		public void BootstrapStructureMap()
 		{
-			var container = new StructureMap.Container();
+            var registry = new Registry();
+            registry.Scan(scan =>
+            {
+                scan.TheCallingAssembly();
 
-			container.Configure(x => x.Scan(scanner =>
-			{
-				scanner.TheCallingAssembly();
-				//scanner.AssembliesFromApplicationBaseDirectory();
-				if (_namespacesToScan != null)
-				{
-					foreach (var name in _namespacesToScan)
-					{
-						scanner.AssembliesFromApplicationBaseDirectory(assembly => assembly.GetName().Name.StartsWith(name));
-					}
-				}
+                if (_namespacesToScan != null)
+                {
+                    foreach (var name in _namespacesToScan)
+                    {
+                        scan.AssembliesFromApplicationBaseDirectory(assembly => assembly.GetName().Name.StartsWith(name));
+                    }
+                }
 
-				scanner.LookForRegistries();
+                scan.LookForRegistries();
 
-				scanner.RegisterConcreteTypesAgainstTheFirstInterface();
+                scan.RegisterConcreteTypesAgainstTheFirstInterface();
+                scan.WithDefaultConventions();
+            });
 
-				scanner.WithDefaultConventions();
-			}));
+            var container = new StructureMap.Container(registry);
 
-			var whatIHave = container.WhatDoIHave();
+			//var whatIHave = container.WhatDoIHave();
 			//container.AssertConfigurationIsValid();
 
 			Container.TheContainer = container;
