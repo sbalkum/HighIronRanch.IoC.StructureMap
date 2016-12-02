@@ -32,6 +32,11 @@ namespace HighIronRanch.IoC
 			return TheContainer.GetAllInstances<T>();
 		}
 
+	    public static IEnumerable<object> GetAllInstances(Type modelType)
+	    {
+	        yield return TheContainer.GetAllInstances(modelType);
+	    }
+
 		public static void BuildUp(object target)
 		{
 			TheContainer.BuildUp(target);
